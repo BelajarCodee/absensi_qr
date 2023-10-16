@@ -24,7 +24,7 @@ const Absensi = db.define('Absensi', {
     },
     pulang:{
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
     },
     keterangan:{
         type: DataTypes.STRING,

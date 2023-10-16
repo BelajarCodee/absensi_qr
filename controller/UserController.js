@@ -8,7 +8,7 @@ const port = process.env.PORT || 6000;
 const nodemailer = require('nodemailer');
 
 
-class AdminController{
+class UserController{
     async addUser(req, res) {
         const user = req.body;
 
@@ -180,9 +180,13 @@ class AdminController{
             role: user.role,
             qr: user.qr,
         };
-        return res.render('profile', {user: infoUser});
+
+        const data = {
+            message: req.flash('message'),
+        }
+        return res.render('profile', {user: infoUser, data: data});
     }
 
 }
 
-module.exports = new AdminController();
+module.exports = new UserController();

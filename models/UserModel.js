@@ -10,6 +10,14 @@ const User = db.define('User', {
         type: DataTypes.STRING,
         allowNull: false,
     },
+    jurusan:{
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    kelas:{
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
     email:{
         type: DataTypes.STRING,
         allowNull: false,

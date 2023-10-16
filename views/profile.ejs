@@ -35,6 +35,11 @@
   </style>
 </head>
 <body>
+  <% if(message.length > 0 ){ %>
+    <script>
+        alert('<%= message[0] %>')
+    </script>
+<% } %>
   <nav>
       <!-- Navbar content here -->
     <ul>

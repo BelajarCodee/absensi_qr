@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>p</title>
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .profile-card {
+      max-width: 400px;
+      margin: 100px auto;
+      padding: 20px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .profile-image {
+      width: 150px;
+      height: 150px;
+      border-radius: 10%;
+      margin: 0 auto 15px;
+      display: block;
+    }
+    .profile-info {
+      text-align: center;
+    }
+    .profile-info h2 {
+      margin-bottom: 5px;
+    }
+    .profile-info p {
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 mx-auto">
+        <div class="profile-card">
+          <div class="profile-info">
+            <h2><%= user.name %></h2>
+            <p><%= user.email %></p>
+            <input type="radio" name="absensi" id="">
+            <input type="radio" name="absensi" id="">
+            <input type="radio" name="absensi" id="">
+            <input type="radio" name="absensi" id="">
+            <input type="radio" name="absensi" id="">
+            <input type="radio" name="absensi" id="">
+            <br>
+            <button type="submit">kirim</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
