@@ -15,7 +15,7 @@ router.get('/register', AuthMiddleware.IsGuest,(req, res) => {
     }
     res.render('tambah', data);
 });
-router.post('/register', AuthMiddleware.IsGuest, UserController.addUser,);
+router.post('/register', UserController.addUser,);
 router.get('/login', AuthMiddleware.IsGuest, (req, res) =>{
     const data = {
         message: req.flash('message'),
@@ -27,6 +27,6 @@ router.get('/logout', AuthMiddleware.IsLogin, UserController.logout);
 
 router.get('/profile', AuthMiddleware.IsLogin, UserController.profile);
 
-router.get('/absen/:uuid', AuthMiddleware.IsGuru, AuthMiddleware.IsSiswa, AbsenController.getUser);
+router.get('/absen/:uuid', AuthMiddleware.IsAdminAndGuru, AbsenController.getUser);
 
 module.exports = router;

@@ -48,6 +48,8 @@ class UserController{
             // Create the user
             const add = await User.create({
                 name: user.name,
+                jurusan: user.jurusan,
+                kelas: user.kelas,
                 email: user.email,
                 password: hashedPassword, // Use the hashed password
                 role: 'siswa',
@@ -176,6 +178,8 @@ class UserController{
 
         const infoUser = {
             name: user.name,
+            jurusan: user.jurusan,
+            kelas: user.kelas,
             email: user.email,
             role: user.role,
             qr: user.qr,
@@ -184,7 +188,7 @@ class UserController{
         const data = {
             message: req.flash('message'),
         }
-        return res.render('profile', {user: infoUser, data: data});
+        return res.render('profile', {user: infoUser, data});
     }
 
 }

@@ -78,6 +78,22 @@ class AuthMiddleware{
             next();
         }
     }
+
+    async IsAdminAndGuru(req,res,next){
+        const uuid = req.session.uuid;
+        const role = await User.findOne({
+            where:{
+                uuid: uuid
+            }
+        })
+
+        if(role.role == "admin" || role.role == "guru"){
+            next();
+        }if(role.role == "siswa"){
+            req.flash("message", "Akses Terlarang")
+            return res.redirect("/profile");
+        }
+    }
 }
 
 module.exports = new AuthMiddleware();

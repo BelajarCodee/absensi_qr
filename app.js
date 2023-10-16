@@ -29,13 +29,13 @@ const store = new sessionStore ({
     db: db,
 });
 
-// db.sync()
-//   .then(() => {
-//         console.log('Tables created');
-//       })
-//       .catch((error) => {
-//             console.error('Error creating tables:', error);
-//           });
+db.sync()
+  .then(() => {
+        console.log('Tables created');
+      })
+      .catch((error) => {
+            console.error('Error creating tables:', error);
+          });
         
         
 app.use(session({
@@ -47,7 +47,6 @@ app.use(session({
         
 app.use(flash());
 app.use(routes);
-
 
 store.sync();
 
