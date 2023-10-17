@@ -10,22 +10,16 @@ router.get('/', (req, res) => {
 });
 
 router.get('/register', AuthMiddleware.IsGuest,(req, res) => {
-    const data = {
-        message: req.flash('message'),
-    }
-    res.render('tambah', data);
+    res.render('tambah');
 });
 router.post('/register', UserController.addUser,);
 router.get('/login', AuthMiddleware.IsGuest, (req, res) =>{
-    const data = {
-        message: req.flash('message'),
-    }
-    res.render('login', data);
+    res.render('login');
 });
 router.post('/login', AuthMiddleware.IsGuest, UserController.login,);
 router.get('/logout', AuthMiddleware.IsLogin, UserController.logout);
 
-router.get('/profile', AuthMiddleware.IsLogin, UserController.profile);
+router.get('/profile', AuthMiddleware.IsLogin, UserController.profile,);
 
 router.get('/absen/:uuid', AuthMiddleware.IsAdminAndGuru, AbsenController.getUser);
 

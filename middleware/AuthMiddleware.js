@@ -1,97 +1,98 @@
 const User = require('../models/UserModel');
+const infoError = 'card-error';
 
-
-class AuthMiddleware{
-    async IsLogin(req,res,next){
+class AuthMiddleware {
+    async IsLogin(req, res, next) {
         const uuid = req.session.uuid;
-        if(uuid){
+        const urlError = '/login';
+        if (uuid) {
             next();
-        }else{
-            req.flash("message", "Anda harus Login terlebih dahulu")
-                return res.redirect("/login");
+        } else {
+            const msg = "Anda harus Login terlebih dahulu";
+            return res.render('pesan/pesan', { msg, url: urlError, info: infoError });
         }
     }
 
-    async IsGuest(req,res,next){
+    async IsGuest(req, res, next) {
         const uuid = req.session.uuid;
-        if(!uuid){
+        if (!uuid) {
             next();
-        }else{
-            req.flash("message", "Anda sudah login")
-            return res.redirect("/profile");
+        } else {
+            const msg = "Anda sudah login";
+            return res.render('pesan/pesan', { msg, url: '/profile', info: infoError });
         }
     }
 
-    async IsAdmin(req,res,next){
+    async IsAdmin(req, res, next) {
         const uuid = req.session.uuid;
         const role = await User.findOne({
-            where:{
+            where: {
                 uuid: uuid
             }
-        })
+        });
 
-        if(role.role == "admin"){
+        if (role.role == "admin") {
             next();
-        }if(role.role == "guru"){
-            req.flash("message", "Akses Terlarang")
-            return res.redirect("/profile");
-        }if(role.role == "siswa"){
-            req.flash("message", "Akses Terlarang")
-            return res.redirect("/profile");
+        } if (role.role == "guru") {
+            const msg = "Akses Terlarang";
+            return res.render('pesan/pesan', { msg, url: '/profile', info: infoError });
+        } if (role.role == "siswa") {
+            const msg = "Akses Terlarang";
+            return res.render('pesan/pesan', { msg, url: '/profile', info: infoError });
         }
     }
 
-    async IsGuru(req,res,next){
+    async IsGuru(req, res, next) {
         const uuid = req.session.uuid;
         const role = await User.findOne({
-            where:{
+            where: {
                 uuid: uuid
             }
-        })
+        });
 
-        if(role.role == "admin"){
-            req.flash("message", "Akses Terlarang")
-            return res.redirect("/profile");
-        }if(role.role == "guru"){
+        if (role.role == "admin") {
+            const msg = "Akses Terlarang";
+            return res.render('pesan/pesan', { msg, url: '/profile', info: infoError });
+        } if (role.role == "guru") {
             next();
-        }if(role.role == "siswa"){
-            req.flash("message", "Akses Terlarang")
-            return res.redirect("/profile");
+        } if (role.role == "siswa") {
+            const msg = "Akses Terlarang";
+            return res.render('pesan/pesan', { msg, url: '/profile', info: infoError });
         }
     }
 
-    async IsSiswa(req,res,next){
+    async IsSiswa(req, res, next) {
         const uuid = req.session.uuid;
         const role = await User.findOne({
-            where:{
+            where: {
                 uuid: uuid
             }
-        })
+        });
 
-        if(role.role == "admin"){
-            req.flash("message", "Akses Terlarang")
-            return res.redirect("/profile");
-        }if(role.role == "guru"){
-            req.flash("message", "Akses Terlarang")
-            return res.redirect("/profile");
-        }if(role.role == "siswa"){
+        if (role.role == "admin") {
+            const msg = "Akses Terlarang";
+            return res.render('pesan/pesan', { msg, url: '/profile', info: infoError });
+        } if (role.role == "guru") {
+            const msg = "Akses Terlarang";
+            return res.render('pesan/pesan', { msg, url: '/profile', info: infoError });
+        } if (role.role == "siswa") {
             next();
         }
     }
 
-    async IsAdminAndGuru(req,res,next){
+    async IsAdminAndGuru(req, res, next) {
         const uuid = req.session.uuid;
         const role = await User.findOne({
-            where:{
+            where: {
                 uuid: uuid
             }
-        })
+        });
 
-        if(role.role == "admin" || role.role == "guru"){
+        if (role.role == "admin" || role.role == "guru") {
             next();
-        }if(role.role == "siswa"){
-            req.flash("message", "Akses Terlarang")
-            return res.redirect("/profile");
+        } if (role.role == "siswa") {
+            const msg = "Akses Terlarang";
+            return res.render('pesan/pesan', { msg, url: '/profile', info: infoError });
         }
     }
 }

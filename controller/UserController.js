@@ -6,11 +6,14 @@ const argon = require('argon2');
 const qr = require('qrcode');
 const port = process.env.PORT || 6000;
 const nodemailer = require('nodemailer');
-
+const infoSuccess = 'card-success';
+const infoError = 'card-error';
 
 class UserController{
     async addUser(req, res) {
         const user = req.body;
+        const urlSuccess = '/login';
+        const urlError = '/register';
 
         try {
             // Check if email is already registered
@@ -21,20 +24,20 @@ class UserController{
             });
 
             if (user.name === "") {
-                req.flash("message", "nama tidak boleh kosong")
-                return res.redirect("/register");
+                const msg = "Nama tidak boleh kosong"
+                return res.render('pesan/pesan', { msg: msg, url: urlError, info: infoError });
             } else if (user.email === "") {
-                req.flash("message", "email tidak boleh kosong")
-                return res.redirect("/register");
+                const msg = "Email tidak boleh kosong"
+                return res.render('pesan/pesan', { msg: msg, url: urlError, info: infoError });
             } else if (user.password === "") {
-                req.flash("message", "password tidak boleh kosong")
-                return res.redirect("/register");
+                const msg = "Password tidak boleh kosong"
+                return res.render('pesan/pesan', { msg: msg, url: urlError, info: infoError });
             } else if (user.password.length < 8) {
-                req.flash("message", "password must be at least 8 characters")
-                return res.redirect("/register");
+                const msg = "password must be at least 8 characters"
+                return res.render('pesan/pesan', { msg: msg, url: urlError, info: infoError });
             }else if(cekEmail){
-                req.flash("message", "email sudah terdaftar")
-                return res.redirect("/register");
+                const msg = "Email sudah terdaftar"
+                return res.render('pesan/pesan', { msg: msg, url: urlError, info: infoError });
             }
 
             // Hash the password
@@ -102,8 +105,8 @@ class UserController{
             });
 
             if(add){
-                req.flash("message", "berhasil mendaftar")
-                return res.redirect("/login");
+                const msg = "berhasil mendaftar"
+                return res.render('pesan/pesan', { msg: msg, url: urlSuccess, info: infoSuccess });
             }
 
         } catch (error) {
@@ -114,10 +117,12 @@ class UserController{
 
     async login(req,res){
         const {email, password} = req.body;
+        const urlSuccess = '/profile';
+        const urlError = '/login';
         try {
             if(email === "" || password === ""){
-                req.flash("message", "form tidak boleh kosong");
-                return res.redirect("/login")
+                const msg = "form tidak boleh kosong"
+                return res.render('pesan/pesan', { msg: msg, url: urlError, info: infoError });
             }
 
             const user = await User.findOne({
@@ -127,23 +132,24 @@ class UserController{
             });
 
             if(!user){
-                req.flash("message", "User tidak ditemukan");
-                return res.redirect("/login")
+                const msg = "User tidak ditemukan"
+                return res.render('pesan/pesan', { msg: msg, url: urlError, info: infoError });
             }
 
             const match = await argon.verify(user.password, password);
 
             if(!match){
-                req.flash("message", "Password salah");
-                return res.redirect("/login");
+                const msg = "password salah"
+                return res.render('pesan/pesan', { msg: msg, url: urlError, info: infoError });
             };
 
             req.session.uuid = user.uuid;
 
             console.log(req.session.uuid);
 
-            req.flash("message", "Berhasil login");
-            return res.redirect("/profile");
+            const msg = "User tidak ditemukan"
+            res.render('pesan/pesan', { msg: msg, url: urlSuccess, info: infoSuccess });
+
 
         } catch (error) {
             console.error(error);
@@ -153,17 +159,20 @@ class UserController{
 
     async logout(req, res){
         const logout = delete req.session.uuid;
+        const urlSuccess = '/login';
         if(logout){
-            req.flash('message', 'berhasil logout');
-            return res.redirect("/login");
+            const msg = "User tidak ditemukan"
+            res.render('pesan/pesan', { msg: msg, url: urlSuccess, info: infoSuccess });
         }
     }
 
     async profile(req, res){
         const uuid = req.session.uuid;
+        const urlSuccess = '/profile';
+        const urlError = '/login';
         if(!uuid){
-            req.flash('message', 'mohon login terlebih dahulu');
-            return res.redirect("/login");
+            const msg = "Silahkan Login terlebih dahulu"
+            res.render('pesan/pesan', { msg: msg, url: urlError, info: infoError });
         }
         const user = await User.findOne({
             where:{
@@ -172,8 +181,8 @@ class UserController{
         })
 
         if(!user){
-            req.flash('message', 'akun tidak ditemukan');
-            return res.redirect("/login");
+            const msg = "User tidak ditemukan"
+            res.render('pesan/pesan', { msg: msg, url: urlError, info: infoError });
         }
 
         const infoUser = {
@@ -185,10 +194,8 @@ class UserController{
             qr: user.qr,
         };
 
-        const data = {
-            message: req.flash('message'),
-        }
-        return res.render('profile', {user: infoUser, data});
+        return res.render('profile', { user: infoUser});
+
     }
 
 }
