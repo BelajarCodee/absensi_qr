@@ -4,7 +4,7 @@ const router = express.Router();
 const UserController = require('../controller/UserController');
 const AbsenController = require('../controller/AbsenController');
 const AuthMiddleware = require('../middleware/AuthMiddleware');
-
+const AdminController = require('../controller/AdminController');
 router.get('/', (req, res) => {
     res.render('index');
 });
@@ -22,5 +22,7 @@ router.get('/logout', AuthMiddleware.IsLogin, UserController.logout);
 router.get('/profile', AuthMiddleware.IsLogin, UserController.profile,);
 
 router.get('/absen/:uuid', AuthMiddleware.IsAdminAndGuru, AbsenController.getUser);
+
+router.get('/admin/dashboard', AuthMiddleware.IsAdmin, AdminController.getAbsensi);
 
 module.exports = router;
