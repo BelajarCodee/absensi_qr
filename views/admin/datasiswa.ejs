@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="../css/datasiswa.css">
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Dashboard</h2>
+        <ul>
+            <li><a href="#">Data Absen</a></li>
+        </ul>
+    </div>
+    <div class="content">
+        <h1>Data Kehadiran</h1>
+        <div id="absen-form">
+            <div id="absen-form">
+                <form id="searchForm" action="/admin/datasiswa" method="post">
+                    <input type="text" id="search" name="search" placeholder="search nama">
+                    <button type="submit">Cari</button>
+                </form>
+            </div>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Name</th>
+                    <th>Jurusan</th>
+                    <th>Kelasan</th>
+                    <th>Hari</th>
+                    <th>Masuk</th>
+                    <th>Pulang</th>
+                    <th>Keterangan</th>
+                  </tr>
+            </thead>
+            <tbody id="absen-data">
+                <% data.forEach(function(item, index) { %>
+                    <tr>
+                      <td><%= index + 1 %></td>
+                      <td><%= item.name %></td>
+                      <td><%= item.jurusan %></td>
+                      <td><%= item.kelasan %></td>
+                      <td><%= item.hari %></td>
+                      <td><%= item.masuk %></td>
+                      <td><%= item.pulang %></td>
+                      <td><%= item.keterangan %></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
