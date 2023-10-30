@@ -147,7 +147,7 @@ class UserController{
 
             console.log(req.session.uuid);
 
-            const msg = "User tidak ditemukan"
+            const msg = "berhasil login"
             res.render('pesan/pesan', { msg: msg, url: urlSuccess, info: infoSuccess });
 
 
@@ -161,7 +161,7 @@ class UserController{
         const logout = delete req.session.uuid;
         const urlSuccess = '/login';
         if(logout){
-            const msg = "User tidak ditemukan"
+            const msg = "Berhasil Logout"
             res.render('pesan/pesan', { msg: msg, url: urlSuccess, info: infoSuccess });
         }
     }
