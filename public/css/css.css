@@ -37,7 +37,7 @@ body {
 /* Form Styles */
 h1, label, input, select, button {
   font-size: 16px;
-  color: #829460;
+  color: black;
   margin: 5px 0;
 }
 

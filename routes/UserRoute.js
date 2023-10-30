@@ -25,5 +25,6 @@ router.get('/absen/:uuid', AuthMiddleware.IsAdminAndGuru, AbsenController.getUse
 
 router.get('/admin/datasiswa', AuthMiddleware.IsAdmin, AdminController.getAbsensi);
 router.post('/admin/datasiswa', AuthMiddleware.IsAdmin, AdminController.postSearchAbsensi);
+router.get('/pdfdata', AuthMiddleware.IsAdmin, AdminController.pdfdata)
 
 module.exports = router;

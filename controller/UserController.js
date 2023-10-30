@@ -32,6 +32,12 @@ class UserController{
             } else if (user.password === "") {
                 const msg = "Password tidak boleh kosong"
                 return res.render('pesan/pesan', { msg: msg, url: urlError, info: infoError });
+            } else if (user.jurusan === "") {
+                const msg = "Jurusan tidak boleh kosong"
+                return res.render('pesan/pesan', { msg: msg, url: urlError, info: infoError });
+            }else if (user.kelas === "") {
+                const msg = "Kelas tidak boleh kosong"
+                return res.render('pesan/pesan', { msg: msg, url: urlError, info: infoError });
             } else if (user.password.length < 8) {
                 const msg = "password must be at least 8 characters"
                 return res.render('pesan/pesan', { msg: msg, url: urlError, info: infoError });
