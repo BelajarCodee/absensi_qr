@@ -13,21 +13,21 @@ class UserController{
     async addUser(req, res) {
         const user = req.body;
         const urlSuccess = '/login';
-        const urlError = '/register';
+        const urlError = '/login';
 
         try {
             // Check if email is already registered
-            const cekEmail = await User.findOne({
+            const cekNis = await User.findOne({
                 where: {
-                    email: user.email,
+                    nis: user.nis,
                 }
             });
 
             if (user.name === "") {
                 const msg = "Nama tidak boleh kosong"
                 return res.render('pesan/pesan', { msg: msg, url: urlError, info: infoError });
-            } else if (user.email === "") {
-                const msg = "Email tidak boleh kosong"
+            } else if (user.nis === "") {
+                const msg = "Nis tidak boleh kosong"
                 return res.render('pesan/pesan', { msg: msg, url: urlError, info: infoError });
             } else if (user.password === "") {
                 const msg = "Password tidak boleh kosong"
@@ -38,11 +38,11 @@ class UserController{
             }else if (user.kelas === "") {
                 const msg = "Kelas tidak boleh kosong"
                 return res.render('pesan/pesan', { msg: msg, url: urlError, info: infoError });
-            } else if (user.password.length < 8) {
+            } else if (user.password.length <= 8) {
                 const msg = "password must be at least 8 characters"
                 return res.render('pesan/pesan', { msg: msg, url: urlError, info: infoError });
-            }else if(cekEmail){
-                const msg = "Email sudah terdaftar"
+            }else if(cekNis){
+                const msg = "Nis sudah terdaftar"
                 return res.render('pesan/pesan', { msg: msg, url: urlError, info: infoError });
             }
 
@@ -59,20 +59,20 @@ class UserController{
                 name: user.name,
                 jurusan: user.jurusan,
                 kelas: user.kelas,
-                email: user.email,
+                nis: user.nis,
                 password: hashedPassword, // Use the hashed password
                 role: 'siswa',
                 qr: nameqr,
             });
 
             
-            const userWithEmail = await User.findOne({
+            const userWithNis = await User.findOne({
                 where: {
-                    email: user.email,
+                    nis: user.nis,
                 }
             });
 
-            const uuid = userWithEmail.uuid;
+            const uuid = userWithNis.uuid;
 
             const isiqr = `http://localhost:${port}/absen/${uuid}`;
 
@@ -81,39 +81,8 @@ class UserController{
             const toFilePromise = require('util').promisify(qr.toFile);
             await toFilePromise(qrCodePath, isiqr);
 
-            const transporter = nodemailer.createTransport({
-                service: process.env.MAIL_SERVICE,
-                auth: {
-                    user: process.env.MAIL_USER,
-                    pass: process.env.MAIL_PASSWORD,
-                },
-            });
-
-            const mailOptions = {
-                from: process.env.MAIL_USER,
-                to: user.email, // Gunakan user.email, bukan variabel yang tidak didefinisikan
-                subject: 'Registration Confirmation',
-                text: `Thank you for registering!\n\nUsername: ${user.name}\nEmail: ${user.email}`,
-                attachments: [
-                    {
-                        filename: nameqr,
-                        path: qrCodePath,
-                    },
-                ],
-            };
-            
-            transporter.sendMail(mailOptions, (error, info) => {
-                if (error) {
-                    console.error('Error sending email:', error);
-                } else {
-                    console.log('Email sent:', info.response);
-                }
-            });
-
-            if(add){
-                const msg = "berhasil mendaftar"
-                return res.render('pesan/pesan', { msg: msg, url: urlSuccess, info: infoSuccess });
-            }
+            const msg = "berhasil mendaftar"
+            return res.render('pesan/pesan', { msg: msg, url: urlSuccess, info: infoSuccess });
 
         } catch (error) {
             console.error(error);
@@ -122,18 +91,18 @@ class UserController{
     }
 
     async login(req,res){
-        const {email, password} = req.body;
+        const {nis, password} = req.body;
         const urlSuccess = '/profile';
         const urlError = '/login';
         try {
-            if(email === "" || password === ""){
+            if(nis === "" || password === ""){
                 const msg = "form tidak boleh kosong"
                 return res.render('pesan/pesan', { msg: msg, url: urlError, info: infoError });
             }
 
             const user = await User.findOne({
                 where:{
-                    email: email,
+                    nis: nis,
                 },
             });
 
@@ -195,7 +164,7 @@ class UserController{
             name: user.name,
             jurusan: user.jurusan,
             kelas: user.kelas,
-            email: user.email,
+            nis: user.nis,
             role: user.role,
             qr: user.qr,
         };

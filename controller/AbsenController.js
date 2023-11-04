@@ -26,7 +26,7 @@ class AbsenController {
                 },
             });
 
-            if (absen) {
+            if (absen.pulang == null) {
                 await Absen.update(
                     {
                         pulang: time,
@@ -39,7 +39,10 @@ class AbsenController {
                     });
                 const msg = "Silahkan pulang";
                 return res.render('pesan/pesan', { msg, url: urlSuccess, info: infoSuccess });
-            } else {
+            }else if (absen.pulang !== null){
+                const msg = "siswa sudah pulang";
+                return res.render('pesan/pesan', {msg, url: urlError, info: infoError})
+            }else {
                 await Absen.create({
                     name: user.name,
                     jurusan: user.jurusan,

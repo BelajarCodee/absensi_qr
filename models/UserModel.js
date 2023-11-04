@@ -18,13 +18,10 @@ const User = db.define('User', {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    email:{
+    nis:{
         type: DataTypes.STRING,
         allowNull: false,
         uniqen: true,
-        validate:{
-            isEmail: true
-        }
     },
     password:{
         type: DataTypes.STRING,

@@ -27,7 +27,7 @@ header {
     align-items: center;
     z-index: 100;
     justify-content: space-between;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
 
 }
 
@@ -41,7 +41,7 @@ header {
 
 .navbar a {
     position: relative;
-    font-size: 30px;
+    font-size: 25px;
     color: #F5F7F8;
     font-weight: 500;
     text-decoration: none; 
@@ -52,7 +52,7 @@ header {
 
 .container{
     background-color: #F5F7F8;
-    border-radius: 30px;
+    border-radius: 25px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
     position: relative;
     overflow: hidden;
@@ -60,6 +60,32 @@ header {
     max-width: 100%;
     min-height: 480px;
 }
+
+@media (max-width: 480px) {
+    .container {
+        width: 100%;
+    }
+
+    .form-container {
+        width: 100%;
+    }
+
+    .toggle-container {
+        width: 100%;
+    }
+
+    .toggle-left {
+        transform: translateX(0);
+    }
+
+    .toggle-right {
+        transform: translateX(0);
+    }
+
+    .navbar {
+        display: none;
+    }
+} 
 
 .container p{
     font-size: 14px;
@@ -192,21 +218,6 @@ header {
         opacity: 1;
         z-index: 5;
     }
-}
-
-.social-icons{
-    margin: 20px 0;
-}
-
-.social-icons a{
-    border: 1px solid #ccc;
-    border-radius: 20%;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 3px;
-    width: 40px;
-    height: 40px;
 }
 
 .toggle-container{

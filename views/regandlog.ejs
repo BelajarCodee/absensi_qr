@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="css/style.css">
+    <title>Login</title>
+</head>
+
+<body>
+    <header class="header">
+        <a href="#" class="logo">Absen</a>
+        <nav class="navbar">
+            <a href="#"><i class='bx bx-menu'></i></a>
+        </nav>
+    </header>
+
+    <div class="container" id="container">
+        <div class="form-container sign-up">
+            <form action="/register" method="post">
+                <h1 class="h1logindaftar">Daftar Akun</h1>
+                <input type="text" name="name" placeholder="Nama">
+                <input type="text" name="nis" placeholder="NIS">
+                <select name="jurusan" id="jurusan">
+                    <option value="">Jurusan</option>
+                    <option value="TKJ">Teknik Komputer & Jaringan</option>
+                    <option value="MM">Multimedia</option>
+                    <option value="ELIND">Elektronika Industri</option>
+                    <option value="TKR">Teknik Kendaraan Ringan</option>
+                    <option value="TP">Teknik Permesinan</option>
+                    <!-- Tambahkan pilihan jurusan lainnya di sini -->
+                </select>
+                <select name="kelas" id="kelas">
+                    <option value="">Kelas</option>
+                    <option value="X">X</option>
+                    <option value="XI">XI</option>
+                    <option value="XII">XII</option>
+                </select>
+                <input type="password" name="password" placeholder="Kata Sandi">
+                <button class="btn">Daftar</button>
+            </form>
+        </div>
+        <div class="form-container sign-in">
+            <form action="/login" method="post">
+                <h1 class="h1logindaftar">Masuk</h1>
+                <input type="nis" name="nis" placeholder="NIS">
+                <input type="password" name="password" placeholder="Kata Sandi">
+                <a href="#">Lupa Password?</a>
+                <button class="btn">Masuk</button>
+            </form>
+        </div>
+        <div class="toggle-container">
+            <div class="toggle">
+                <div class="toggle-panel toggle-left">
+                    <h1>Sudah Punya Akun?</h1>
+                    <p>Masuk sekarang untuk menggunakan kode.</p>
+                    <button class="hidden" id="login">Masuk</button>
+                </div>
+                <div class="toggle-panel toggle-right">
+                    <h1>Belum Daftar?</h1>
+                    <p>Daftar sekarang untuk mendapatkan kodenya!</p>
+                    <button class="hidden" id="register">Daftar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+
+</html>

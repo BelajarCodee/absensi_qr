@@ -14,7 +14,7 @@ router.get('/register', AuthMiddleware.IsGuest,(req, res) => {
 });
 router.post('/register', UserController.addUser,);
 router.get('/login', AuthMiddleware.IsGuest, (req, res) =>{
-    res.render('login');
+    res.render('regandlog');
 });
 router.post('/login', AuthMiddleware.IsGuest, UserController.login,);
 router.get('/logout', AuthMiddleware.IsLogin, UserController.logout);

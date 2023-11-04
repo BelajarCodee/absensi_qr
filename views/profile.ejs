@@ -1,67 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>p</title>
-  <style>
-    body {
-      background-color: #f8f9fa;
-    }
-    .profile-card {
-      max-width: 400px;
-      margin: 100px auto;
-      padding: 20px;
-      background-color: #ffffff;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-    .profile-image {
-      width: 150px;
-      height: 150px;
-      border-radius: 10%;
-      margin: 0 auto 15px;
-      display: block;
-    }
-    .profile-info {
-      text-align: center;
-    }
-    .profile-info h2 {
-      margin-bottom: 5px;
-    }
-    .profile-info p {
-      color: #888;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/profile.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Selamat Datang</title>
 </head>
 <body>
-  <nav>
-      <!-- Navbar content here -->
-    <ul>
-        <li><a href="/profile">Profile</a></li>
-        <% if (user.role === 'admin') { %>
-            <li><a href="/admin/dashboard">Admin Panel</a></li>
-        <% } %>
-        <% if (user.role === 'scanner') { %>
-            <li><a href="/scanner">Scanner Panel</a></li>
-        <% } %>
-        <a href="/logout">Logout</a>
-    </ul>
-  </nav>
+    <header class="header">
+        <a href="#" class="logo">Absen</a>
+        <nav class="navbar">
+            <a href="/logout"><i class='bx bx-menu'>Logout</i></a>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <div class="profile-box">
+                <div class="name">
+                    <img src="/qr/<%=user.qr %>" alt="qrcode" class="qrcode">
+                    <div class="form-group">
+                        <label for="nama">Nama</label>
+                        <input type="text" id="nama" value="<%=user.name%>" readonly>
+                        
+                        <label for="kelas">Kelas</label>
+                        <input type="text" id="kelas" value="<%=user.kelas%>" readonly>
 
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6 mx-auto">
-        <div class="profile-card">
-          <img src="/qr/<%=user.qr %>" alt="Profile Image" class="profile-image">
-          <div class="profile-info">
-            <h2><%= user.name %></h2>
-            <p>Email: <%= user.email %></p>
-            <p>Role: <%= user.role %></p>
-          </div>
+                        
+                        <label for="nis">Nis</label>
+                        <input type="text" id="nis" value="<%=user.nis%>" readonly>
+
+                    </div>                                           
+                </div>
+                <a id="downloadLink" href="/qr/<%=user.qr %>" download="<%=user.qr %>.jpg">
+                  <button id="downloadButton" type="button" class="namebtn"><i class='bx bxs-download'></i></button>
+                </a>
+                
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
+    </main>
+    <footer>
+
+    </footer>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script>
+        document.getElementById("downloadButton").addEventListener("click", function () {
+            // Sembunyikan tombol "button" saat mengambil tangkapan layar
+            const downloadButton = document.getElementById("downloadButton");
+            downloadButton.style.display = "none";
+    
+            // Temukan elemen dengan class "profile-box"
+            const profileBox = document.querySelector(".profile-box");
+    
+            // Gunakan html2canvas untuk membuat tangkapan layar dari elemen "profile-box"
+            html2canvas(profileBox).then(canvas => {
+                // Konversi tangkapan layar menjadi data URL PNG
+                const imgData = canvas.toDataURL('image/png');
+    
+                // Buat elemen <a> untuk mengunduh gambar
+                const a = document.createElement("a");
+                a.href = imgData;
+                a.download = "downloaded_image.png";
+    
+                // Klik elemen <a> untuk memulai unduhan
+                a.click();
+    
+                // Tampilkan kembali tombol "button" setelah selesai mengambil tangkapan layar
+                downloadButton.style.display = "block";
+            });
+        });
+    </script>
 </body>
 </html>
