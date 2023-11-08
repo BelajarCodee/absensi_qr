@@ -65,6 +65,7 @@ header {
     border-radius: 25px;
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+    transition: 0.5s ease;
 }
 
 
@@ -118,4 +119,84 @@ label {
 .namebtn:hover {
     background-color: #28292b;
     transition: 0.5s ease;
+}
+
+@media (max-width: 480px) {
+
+    .container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 15%;   
+    }
+    
+    .profile-box {
+        margin-top: 100px;
+        width: 100%;
+        height: 100%;
+        background-color: #F5F7F8;
+        text-align: center;
+        padding: 40px 90px;
+        position: absolute;
+        border-radius: 0px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+        transition: 0.5s ease;
+    }
+
+    .qrcode {
+        width: 150px;
+        margin-top: 40px;
+        margin-bottom: 40px;
+    }
+    
+    .form-group {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    
+    input {
+        background-color: #eee;
+        border: none;
+        margin: 10px 0;
+        padding: 10px 0px;
+        font-size: 12px;
+        border-radius: 5px;
+        width: 100%;
+        outline: none;
+        margin-bottom: 20px;
+        text-align: center;
+        line-height: 1;
+        vertical-align: middle;
+    }
+    
+    .namebtn {
+        margin-top: 40px;
+        background-color: #45474B;
+        padding: 10px 90px;
+        border-radius: 5px;
+        cursor: pointer;
+        color: #F5F7F8;
+        font-size: 100%;
+        width: 100%;
+        
+    }
+    
+    label {
+        font-weight: 500; 
+        color: #45474B; 
+        display: flex;
+        font-size: 10px;
+        text-align: left;
+    }
+    
+    .namebtn:hover {
+        background-color: #28292b;
+        transition: 0.5s ease;
+    }
+    
 }

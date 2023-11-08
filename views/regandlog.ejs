@@ -14,10 +14,10 @@
     <header class="header">
         <a href="#" class="logo">Absen</a>
         <nav class="navbar">
-            <a href="#"><i class='bx bx-menu'></i></a>
+            <a href="index.html"><i class='bx bx-menu'></i></a>
         </nav>
     </header>
-
+    <main>
     <div class="container" id="container">
         <div class="form-container sign-up">
             <form action="/register" method="post">
@@ -35,11 +35,9 @@
                 </select>
                 <select name="kelas" id="kelas">
                     <option value="">Kelas</option>
-                    <option value="X">X</option>
-                    <option value="XI">XI</option>
-                    <option value="XII">XII</option>
                 </select>
-                <input type="password" name="password" placeholder="Kata Sandi">
+                <input type="password" name="password" id="passwordField" placeholder="Kata Sandi">
+               <button type="button" class="show-password-btn" id="show-pswd-btn">Show Password</button>
                 <button class="btn">Daftar</button>
             </form>
         </div>
@@ -47,7 +45,8 @@
             <form action="/login" method="post">
                 <h1 class="h1logindaftar">Masuk</h1>
                 <input type="nis" name="nis" placeholder="NIS">
-                <input type="password" name="password" placeholder="Kata Sandi">
+                <input type="password" name="password" id="passwordFieldLgn" placeholder="Kata Sandi">
+                <button type="button" class="show-password-btn" id="show-pswd-btn-login">Show Password</button>
                 <a href="#">Lupa Password?</a>
                 <button class="btn">Masuk</button>
             </form>
@@ -67,8 +66,9 @@
             </div>
         </div>
     </div>
-
+    </main>
     <script src="js/script.js"></script>
+    <script src="server.js"></script>
 </body>
 
 </html>

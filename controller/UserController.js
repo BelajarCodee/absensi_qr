@@ -92,6 +92,7 @@ class UserController{
 
     async login(req,res){
         const {nis, password} = req.body;
+        console.log(nis, password);
         const urlSuccess = '/profile';
         const urlError = '/login';
         try {
@@ -101,33 +102,40 @@ class UserController{
             }
 
             const user = await User.findOne({
-                where:{
+                where: {
                     nis: nis,
                 },
             });
+            console.log(user);
 
-            if(!user){
-                const msg = "User tidak ditemukan"
+            if (!user) {
+                const msg = "User tidak ditemukan";
                 return res.render('pesan/pesan', { msg: msg, url: urlError, info: infoError });
             }
 
             const match = await argon.verify(user.password, password);
+            console.log(match); // Log password match result to console
 
-            if(!match){
-                const msg = "password salah"
+            if (!match) {
+                const msg = "Password salah";
                 return res.render('pesan/pesan', { msg: msg, url: urlError, info: infoError });
-            };
+            }
 
             req.session.uuid = user.uuid;
+            console.log("Session UUID:", req.session.uuid);
 
-            console.log(req.session.uuid);
-
-            const msg = "berhasil login"
+            const msg = "Berhasil login";
             res.render('pesan/pesan', { msg: msg, url: urlSuccess, info: infoSuccess });
 
 
         } catch (error) {
-            console.error(error);
+            console.error("Error during login:", error);
+        
+            // Log the specific error message
+            if (error instanceof argon2.VerifierError) {
+                console.error("Verifier error:", error.message);
+            }
+        
             res.status(500).send("Internal Server Error");
         }
     }

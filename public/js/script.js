@@ -3,7 +3,36 @@ const registerBtn = document.getElementById('register');
 const loginBtn = document.getElementById('login');
 const jurusanSelect = document.getElementById('jurusan');
 const kelasSelect = document.getElementById('kelas');
+const showPasswordButton = document.getElementById("show-pswd-btn");
+const showPasswordButtonLogin = document.getElementById("show-pswd-btn-login");
 
+// Fungsi untuk menampilkan atau menyembunyikan kata sandi di form pendaftaran
+function togglePasswordRegister() {
+    var passwordField = document.getElementById("passwordField");
+    if (passwordField.type === "password") {
+        passwordField.type = "text";
+    } else {
+        passwordField.type = "password";
+    }
+}
+
+// Fungsi untuk menampilkan atau menyembunyikan kata sandi di form masuk
+function togglePasswordLogin() {
+    var passwordFieldLgn = document.getElementById("passwordFieldLgn");
+    if (passwordFieldLgn.type === "password") {
+        passwordFieldLgn.type = "text";
+    } else {
+        passwordFieldLgn.type = "password";
+    }
+}
+
+// Event listener untuk tombol "Show Password" di form pendaftaran
+var showPswdBtn = document.getElementById("show-pswd-btn");
+showPswdBtn.addEventListener("click", togglePasswordRegister);
+
+// Event listener untuk tombol "Show Password" di form masuk
+var showPswdBtnLgn = document.getElementById("show-pswd-btn-login");
+showPswdBtnLgn.addEventListener("click", togglePasswordLogin);
 
 registerBtn.addEventListener('click', () => {
     container.classList.add("active");

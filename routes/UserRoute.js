@@ -5,15 +5,12 @@ const UserController = require('../controller/UserController');
 const AbsenController = require('../controller/AbsenController');
 const AuthMiddleware = require('../middleware/AuthMiddleware');
 const AdminController = require('../controller/AdminController');
-router.get('/', (req, res) => {
-    res.render('index');
-});
 
 router.get('/register', AuthMiddleware.IsGuest,(req, res) => {
     res.render('tambah');
 });
 router.post('/register', UserController.addUser,);
-router.get('/login', AuthMiddleware.IsGuest, (req, res) =>{
+router.get('/', AuthMiddleware.IsGuest, (req, res) =>{
     res.render('regandlog');
 });
 router.post('/login', AuthMiddleware.IsGuest, UserController.login,);
@@ -25,6 +22,6 @@ router.get('/absen/:uuid', AuthMiddleware.IsAdminAndGuru, AbsenController.getUse
 
 router.get('/admin/datasiswa', AuthMiddleware.IsAdmin, AdminController.getAbsensi);
 router.post('/admin/datasiswa', AuthMiddleware.IsAdmin, AdminController.postSearchAbsensi);
-router.get('/pdfdata', AuthMiddleware.IsAdmin, AdminController.pdfdata)
+router.get('/downloaddata', AuthMiddleware.IsAdmin, AdminController.DbToExcel)
 
 module.exports = router;

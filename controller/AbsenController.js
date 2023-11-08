@@ -19,6 +19,8 @@ class AbsenController {
                 },
             });
 
+            console.log(user);
+
             const absen = await Absen.findOne({
                 where: {
                     name: user.name,
@@ -26,23 +28,9 @@ class AbsenController {
                 },
             });
 
-            if (absen.pulang == null) {
-                await Absen.update(
-                    {
-                        pulang: time,
-                    },
-                    {
-                        where: {
-                            name: user.name,
-                            hari: day,
-                        },
-                    });
-                const msg = "Silahkan pulang";
-                return res.render('pesan/pesan', { msg, url: urlSuccess, info: infoSuccess });
-            }else if (absen.pulang !== null){
-                const msg = "siswa sudah pulang";
-                return res.render('pesan/pesan', {msg, url: urlError, info: infoError})
-            }else {
+            console.log(absen);
+
+            if(!absen){
                 await Absen.create({
                     name: user.name,
                     jurusan: user.jurusan,
@@ -51,8 +39,27 @@ class AbsenController {
                     masuk: time,
                     keterangan: "hadir",
                 });
-                const msg = "Absensi berhasil";
-                return res.render('pesan/pesan', { msg, url: urlSuccess, info: infoSuccess });
+
+                const msg = "berhasil memasukan data"
+                return res.render('pesan/pesan', { msg: msg, url: urlSuccess, info: infoSuccess });
+            }else if(absen.pulang === null){
+                await Absen.update(
+                    {
+                        pulang: time,
+                    },
+                    {
+                        where: {
+                            name: user.name,
+                            hari: day,
+                        }
+                    }
+                )
+                const msg = "berhasil memasukan data siswa silahkan pulang"
+                return res.render('pesan/pesan', { msg: msg, url: urlSuccess, info: infoSuccess });
+            }else if(absen.pulang !== null){
+                const pulang = absen.pulang
+                const msg = `siswa sudah pulang saat jam ${pulang}`
+                return res.render('pesan/pesan', { msg: msg, url: urlSuccess, info: infoSuccess });
             }
         } catch (error) {
             console.error(error);
