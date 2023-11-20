@@ -20,7 +20,7 @@ router.get('/profile', AuthMiddleware.IsLogin, UserController.profile,);
 
 router.get('/absen/:uuid', AuthMiddleware.IsAdminAndGuru, AbsenController.getUser);
 
-router.get('/admin/datasiswa', AuthMiddleware.IsAdmin, AdminController.getAbsensi);
+router.get('/admin/datasiswa', AuthMiddleware.IsAdminAndGuru, AdminController.getAbsensi);
 router.post('/admin/datasiswa', AuthMiddleware.IsAdmin, AdminController.postSearchAbsensi);
 router.get('/downloaddata', AuthMiddleware.IsAdmin, AdminController.DbToExcel)
 

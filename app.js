@@ -2,7 +2,6 @@ require('dotenv').config();
 const express = require('express');
 const ip = require('ip');
 const routes = require('./routes/UserRoute');
-const bodyParser = require('body-parser');
 const path = require('path');
 const db = require('./config/database');
 const userModel = require('./models/UserModel');
@@ -10,6 +9,7 @@ const absensiModel = require('./models/AbsensiModel');
 const session = require('express-session');
 const sequelizeStore = require('connect-session-sequelize');
 const flash = require('express-flash');
+const bodyParser = require('body-parser');
 
 const ipA = ip.address();
 const app = express();

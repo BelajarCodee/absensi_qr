@@ -85,23 +85,16 @@ class AdminController {
       const workbook = new ExcelJS.Workbook();
       const worksheet = workbook.addWorksheet('Absensi Data');
   
-      // Define the header row in the Excel file
-      worksheet.addRow(['Name', 'Jurusan', 'Kelasan', 'Hari', 'Masuk', 'Pulang', 'Keterangan']);
+      worksheet.addRow(['Name', 'Jurusan', 'Kelas', 'Hari', 'Masuk', 'Pulang', 'Keterangan']);
   
-      // Populate data rows
       absen.forEach((item) => {
         worksheet.addRow([item.name, item.jurusan, item.kelas, item.hari, item.masuk, item.pulang, item.keterangan]);
       });
   
-      // Set content type and disposition for the response
       res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
       res.setHeader('Content-Disposition', 'attachment; filename=absensi_data.xlsx');
-  
-      // Write the workbook to the response
+
       await workbook.xlsx.write(res);
-  
-      // End the response - DO NOT use res.end() after res.render()
-      // res.end();
   
     } catch (error) {
       console.error('Error exporting absensi data to Excel:', error);

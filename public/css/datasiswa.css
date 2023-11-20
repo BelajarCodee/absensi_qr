@@ -48,6 +48,22 @@ body {
     flex-grow: 1;
 }
 
+.download{
+    background-color: #333;
+    font-size: 16px;
+    text-align: center;
+    display: inline-block;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    color: white;
+}
+
+.link-download{
+    text-decoration: none;
+    color: white;
+}
+
 h1 {
     margin-bottom: 20px;
 }
@@ -78,3 +94,5 @@ tbody tr:nth-child(odd) {
 tbody tr:nth-child(even) {
     background-color: #fff;
 }
+
+

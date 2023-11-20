@@ -8,12 +8,13 @@ const port = process.env.PORT || 6000;
 const nodemailer = require('nodemailer');
 const infoSuccess = 'card-success';
 const infoError = 'card-error';
+const ip = require('ip').address();
 
 class UserController{
     async addUser(req, res) {
         const user = req.body;
-        const urlSuccess = '/login';
-        const urlError = '/login';
+        const urlSuccess = '/';
+        const urlError = '/';
 
         try {
             // Check if email is already registered
@@ -38,7 +39,7 @@ class UserController{
             }else if (user.kelas === "") {
                 const msg = "Kelas tidak boleh kosong"
                 return res.render('pesan/pesan', { msg: msg, url: urlError, info: infoError });
-            } else if (user.password.length <= 8) {
+            } else if (user.password.length < 8) {
                 const msg = "password must be at least 8 characters"
                 return res.render('pesan/pesan', { msg: msg, url: urlError, info: infoError });
             }else if(cekNis){
@@ -52,7 +53,7 @@ class UserController{
             // Generate QR code name based on email and date
             const now = dayjs();
             const date = now.format("DDMMYYYY");
-            const nameqr = `${user.email}_${date}.png`;
+            const nameqr = `${user.nis}_${date}.png`;
 
             // Create the user
             const add = await User.create({
@@ -74,7 +75,7 @@ class UserController{
 
             const uuid = userWithNis.uuid;
 
-            const isiqr = `http://localhost:${port}/absen/${uuid}`;
+            const isiqr = `http://localhost:${port}/absen/${uuid} or http://${ip}:${port}/absen/${uuid}`;
 
             const qrCodePath = path.join(__dirname, '../public/qr', nameqr);
 
@@ -94,7 +95,7 @@ class UserController{
         const {nis, password} = req.body;
         console.log(nis, password);
         const urlSuccess = '/profile';
-        const urlError = '/login';
+        const urlError = '/';
         try {
             if(nis === "" || password === ""){
                 const msg = "form tidak boleh kosong"
@@ -142,7 +143,7 @@ class UserController{
 
     async logout(req, res){
         const logout = delete req.session.uuid;
-        const urlSuccess = '/login';
+        const urlSuccess = '/';
         if(logout){
             const msg = "Berhasil Logout"
             res.render('pesan/pesan', { msg: msg, url: urlSuccess, info: infoSuccess });
@@ -152,7 +153,7 @@ class UserController{
     async profile(req, res){
         const uuid = req.session.uuid;
         const urlSuccess = '/profile';
-        const urlError = '/login';
+        const urlError = '/';
         if(!uuid){
             const msg = "Silahkan Login terlebih dahulu"
             res.render('pesan/pesan', { msg: msg, url: urlError, info: infoError });

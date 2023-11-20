@@ -5,6 +5,7 @@ const jurusanSelect = document.getElementById('jurusan');
 const kelasSelect = document.getElementById('kelas');
 const showPasswordButton = document.getElementById("show-pswd-btn");
 const showPasswordButtonLogin = document.getElementById("show-pswd-btn-login");
+const registerForm = document.forms[0];
 
 // Fungsi untuk menampilkan atau menyembunyikan kata sandi di form pendaftaran
 function togglePasswordRegister() {
@@ -90,3 +91,27 @@ jurusanSelect.addEventListener("change", function() {
         `;
     }
 });
+
+
+// Function to check if the required fields are filled in and enable/disable the "Daftar" button accordingly
+function checkDaftarButton() {
+    const nameInput = registerForm.elements["name"].value;
+    const nisInput = registerForm.elements["nis"].value;
+    const jurusanInput = registerForm.elements["jurusan"].value;
+    const passwordInput = registerForm.elements["password"].value;
+
+    const daftarButton = document.getElementById("daftarBtn"); // Updated this line
+    
+    // Enable the "Daftar" button only if all required fields are filled in
+    daftarButton.disabled = !(nameInput && nisInput && jurusanInput && passwordInput);
+}
+
+// Event listener for the "Daftar" button click
+registerBtn.addEventListener('click', () => {
+    container.classList.add("active");
+    // Call the function to check if the "Daftar" button should be enabled
+    checkDaftarButton();
+});
+
+// Event listener for changes in the input fields to dynamically check and update the "Daftar" button status
+registerForm.addEventListener('input', checkDaftarButton)
